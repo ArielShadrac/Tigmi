@@ -148,7 +148,7 @@
 
 | Projet / Project | Domaine / Field | Description | Langage / Language | Auteur / Author |
 |---|---|---|---|---|
-| *(premier projet ? [proposez le vôtre](CONTRIBUTING.md) / first project? [propose yours](CONTRIBUTING.md))* | | | | |
+| [XCore Framework](https://github.com/traoreera/xcore) | Automation | XCore is a high-performance, plugin-first orchestration framework built on top of FastAPI. It is designed to load, isolate, and manage modular extensions (plugins) in a secure, sandboxed environment. | Python |[Eliezer Traore](https://github.com/traoreera) |
 
 ---
 
