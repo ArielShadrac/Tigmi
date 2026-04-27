@@ -82,7 +82,7 @@
 
 | Projet / Project | Domaine / Field | Description | Langage / Language | Auteur / Author |
 |---|---|---|---|---|
-| *(premier projet ? [proposez le vôtre](CONTRIBUTING.md) / first project? [propose yours](CONTRIBUTING.md))* | | | | |
+| [MaskMe](https://github.com/k13lucien/maskme) | Data Privacy & Compliance | Une bibliothèque Python agnostique pour le Data masking. Conçue pour transformer les données sensibles (structurées ou non) en données anonymes exploitables, garantissant ainsi le respect des règlements sur la protection des données à caractère personnel (CIL, Loi n°001-2021/AN) tout en préservant l'intégrité des flux de données. | Python | [Lucien Kiemde](https://github.com/k13lucien) |
 
 ---
 
