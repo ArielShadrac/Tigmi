@@ -66,10 +66,10 @@
 
 | Projet / Project | Domaine / Field | Description | Langage / Language | Auteur / Author |
 |---|---|---|---|---|
-| [Episia](https://pypi.org/project/episia/) | Epidemiology | Bibliothèque Python d'épidémiologie et santé publique. Python epidemiology and public health library. | Python | [Xcept-Health](https://github.com/Xcept-Health) |
-| [EyeTrace](https://github.com/Xcept-Health/eyetrace) | Neuroscience | Bibliothèque Python de métriques oculaires et suivi du regard. Python package for eye-tracking and ocular metrics. | Python | [Xcept-Health](https://github.com/Xcept-Health) |
-| [MentalChecker](https://github.com/Xcept-Health/MentalChecker) | Mental health | Outil de dépistage et suivi en santé mentale pour le Burkina Faso. Mental health screening and tracking tool for Burkina Faso. | TypeScript, React | [Xcept-Health](https://github.com/Xcept-Health) |
-| [Wepisia](https://github.com/Xcept-Health/wepisia) | Epidemiology | Plateforme web d'épidémiologie, équivalent africain d'OpenEpi. Web-based epidemiology platform, African equivalent of OpenEpi. | TypeScript, React | [Xcept-Health](https://github.com/Xcept-Health) |
+| [Episia](https://pypi.org/project/episia/) | Epidemiology | Bibliothèque Python d'épidémiologie et santé publique / Python epidemiology and public health library. | Python | [Xcept-Health](https://github.com/Xcept-Health) |
+| [EyeTrace](https://github.com/Xcept-Health/eyetrace) | Neuroscience | Bibliothèque Python de métriques oculaires et suivi du regard / Python package for eye-tracking and ocular metrics. | Python | [Xcept-Health](https://github.com/Xcept-Health) |
+| [MentalChecker](https://github.com/Xcept-Health/MentalChecker) | Mental health | Outil de dépistage et suivi en santé mentale pour le Burkina Faso./ Mental health screening and tracking tool for Burkina Faso. | TypeScript, React | [Xcept-Health](https://github.com/Xcept-Health) |
+| [Wepisia](https://github.com/Xcept-Health/wepisia) | Epidemiology | Plateforme web d'épidémiologie, équivalent africain d'OpenEpi./ Web-based epidemiology platform, African equivalent of OpenEpi. | TypeScript, React | [Xcept-Health](https://github.com/Xcept-Health) |
 
 ---
 
