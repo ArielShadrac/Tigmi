@@ -2,7 +2,7 @@
 ![Tigmibanner](logo.png)
 
 **Tigmi, en mooré (Burkina Faso), veut dire *rassembler*. C'est exactement le but de cette liste : rassembler des outils, bibliothèques et projets open source créés par ou pour le Burkina Faso, dans tous les domaines.**
-
+ 
 **Tigmi, in Mooré (Burkina Faso), means *to gather*. That's exactly what this list is about: gathering open‑source tools, libraries, and projects created by or for Burkina Faso, across all fields.**
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
