@@ -1,0 +1,34 @@
+name: Update project count
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Count projects
+        id: count
+        run: |
+          # Compte les lignes de tableau avec un lien GitHub (pattern: | [nom](http...)
+          COUNT=$(grep -oP '\|\s*\[.+?\]\(https?://github\.com[^\)]+\)' README.md | wc -l)
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+
+      - name: Update stats.json
+        run: |
+          echo '{"projects": ${{ steps.count.outputs.count }}}' > stats.json
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add stats.json
+          git diff --staged --quiet || git commit -m "chore: update project count"
+          git push
