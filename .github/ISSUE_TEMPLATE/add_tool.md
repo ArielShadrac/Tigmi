@@ -1,9 +1,11 @@
 ---
-name: "Proposer un outil / Propose a tool"
-about: "Soumettre un projet open source burkinabè ou africain / Submit a Burkinabè or African open source project"
-title: "Add: [Nom du projet / Project name]"
-labels: ["addition", "needs-review"]
-assignees: []
+name: Proposer un outil / Propose a tool
+about: Soumettre un projet open source burkinabè ou africain / Submit a Burkinabè
+  or African open source project
+title: 'Add: [Nom du projet / Project name]'
+labels: ''
+assignees: ''
+
 ---
 
 ## Informations sur le projet / Project information
