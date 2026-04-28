@@ -116,7 +116,7 @@
 | Projet / Project | Domaine / Field | Description | Langage / Language | Auteur / Author |
 |---|---|---|---|---|
 | [XCore Framework](https://github.com/traoreera/xcore) | Automation | XCore is a high-performance, plugin-first orchestration framework built on top of FastAPI. It is designed to load, isolate, and manage modular extensions (plugins) in a secure, sandboxed environment. | Python |[Eliezer Traore](https://github.com/traoreera) |
-| [BuildShare](https://github.com/bsrodrigue/buildshare) | Developer Tools | Plateforme interne de distribution d'APKs Android avec pipeline asynchrone, gestion de versions et RBAC / Internal Android APK distribution platform with async pipeline, versioning, and RBAC. | Python, TypeScript | [bsrodrigue](https://github.com/bsrodrigue) |
+| [BuildShare](https://github.com/bsrodrigue/buildshare) | Developer Tools | Plateforme interne de distribution d'APKs Android avec pipeline asynchrone, gestion de versions et RBAC / Internal Android APK distribution platform with async pipeline, versioning, and RBAC. | Python, TypeScript | [Badini Rachid Rodrigue](https://github.com/bsrodrigue) |
 
 ---
 
