@@ -9,8 +9,11 @@
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+Tu connais un projet open source burkinabè qui mérite d'être ici ?
+Tu veux proposer une nouvelle catégorie, signaler un lien mort, ou simplement échanger sur l'écosystème numérique du Burkina ?
 
----
+[Ouvre une discussion](https://github.com/ArielShadrac/Tigmi/discussions)
+
 
 *Chaque projet listé ici est open source, publiquement accessible, et pertinent pour le contexte burkinabè ou africain. Les contributions sont ouvertes à toutes et à tous : quel que soit le niveau, le domaine ou l'origine.*
 
@@ -192,6 +195,9 @@
 **See [CONTRIBUTING.md](CONTRIBUTING.md) for details.**
 
 ---
+
+
+Toutes les contributions sont les bienvenues — développeurs, étudiants, chercheurs, structures.
 
 ## Licence / License
 
