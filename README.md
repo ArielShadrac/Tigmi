@@ -55,7 +55,7 @@
 
 | Projet / Project | Domaine / Field | Description | Langage / Language | Auteur / Author |
 |---|---|---|---|---|
-| [aws-solution-architect-quiz](https://github.com/abdoulfataoh/aws-solution-architect-quiz) | Cloud / Formation | Application web interactive proposant 684+ questions pour préparer la certification AWS Certified Solutions Architect. / Interactive web app with 684+ questions to prepare for the AWS Certified Solutions Architect exam. | Vue, JavaScript | abdoulfataoh |
+| [aws-solution-architect-quiz](https://github.com/abdoulfataoh/aws-solution-architect-quiz) | Cloud / Formation | Application web interactive proposant 684+ questions pour préparer la certification AWS Certified Solutions Architect. / Interactive web app with 684+ questions to prepare for the AWS Certified Solutions Architect exam. | Vue, JavaScript | [abdoulfataoh](https://github.com/abdoulfataoh) |
 
 ---
 
