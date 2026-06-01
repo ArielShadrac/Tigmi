@@ -4,507 +4,222 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tigmi Open Source Burkina Faso</title>
-  <meta name="description" content="Tigmi rassemble les outils, bibliothèques et projets open source créés par ou pour le Burkina Faso." />
+  <meta name="description" content="Tigmi rassemble les outils, bibliotheques et projets open source crees par ou pour le Burkina Faso." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
-    /*  TOKENS  */
     :root {
-      --bg:          #F7F6F4;
-      --bg-subtle:   #EEECE9;
-      --surface:     #FFFFFF;
-      --surface-hi:  #F9F8F6;
-      --border:      #E4E1DC;
-      --border-hi:   #CBC7C0;
-      --text-1:      #1C1A18;
-      --text-2:      #5C584F;
-      --text-3:      #9C9890;
-      --accent:      #7B6248;
-      --accent-bg:   #F0EAE2;
-      --accent-text: #5C4832;
-      --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md:   0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
-      --radius-sm:   6px;
-      --radius-md:   10px;
-      --radius-lg:   14px;
-      --transition:  0.18s ease;
+      --bg:#F7F6F4;--bg-subtle:#EEECE9;--surface:#FFFFFF;--surface-hi:#F9F8F6;
+      --border:#E4E1DC;--border-hi:#CBC7C0;--text-1:#1C1A18;--text-2:#5C584F;
+      --text-3:#9C9890;--accent:#7B6248;--accent-bg:#F0EAE2;--accent-text:#5C4832;
+      --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:0 4px 12px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
+      --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--transition:0.18s ease;
     }
     [data-theme="dark"] {
-      --bg:          #111110;
-      --bg-subtle:   #181715;
-      --surface:     #1E1D1B;
-      --surface-hi:  #252320;
-      --border:      #2C2A26;
-      --border-hi:   #3E3B36;
-      --text-1:      #EDE9E3;
-      --text-2:      #938E85;
-      --text-3:      #5E5A54;
-      --accent:      #A08060;
-      --accent-bg:   #2A2218;
-      --accent-text: #C4A07A;
-      --shadow-sm:   0 1px 3px rgba(0,0,0,0.3);
-      --shadow-md:   0 4px 16px rgba(0,0,0,0.3);
+      --bg:#111110;--bg-subtle:#181715;--surface:#1E1D1B;--surface-hi:#252320;
+      --border:#2C2A26;--border-hi:#3E3B36;--text-1:#EDE9E3;--text-2:#938E85;
+      --text-3:#5E5A54;--accent:#A08060;--accent-bg:#2A2218;--accent-text:#C4A07A;
+      --shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 16px rgba(0,0,0,0.3);
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    ::selection{background:var(--accent-bg);color:var(--text-1)}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;line-height:1.6;transition:background var(--transition),color var(--transition)}
+    nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px}
+    .nav-inner{max-width:1160px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;color:var(--text-1);text-decoration:none;letter-spacing:-0.02em}
+    .nav-logo em{color:var(--accent);font-style:normal}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    .btn-sm{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;border-radius:var(--radius-sm);text-decoration:none;cursor:pointer;transition:all var(--transition);border:none}
+    .btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border)}
+    .btn-ghost:hover{background:var(--surface);color:var(--text-1)}
+    .btn-solid{background:var(--text-1);color:var(--bg)}
+    .btn-solid:hover{opacity:0.85}
+    .theme-toggle{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--border);color:var(--text-2);cursor:pointer;transition:all var(--transition)}
+    .theme-toggle:hover{background:var(--surface);color:var(--text-1)}
+    .icon-sun,.icon-moon{display:none}
+    [data-theme="light"] .icon-sun{display:block}
+    [data-theme="dark"] .icon-moon{display:block}
+    .hero{max-width:1160px;margin:0 auto;padding:72px 40px 56px;opacity:0;animation:fadeIn 0.5s 0.05s ease forwards}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;background:var(--accent-bg);color:var(--accent-text);border-radius:100px;font-size:12px;font-weight:500;letter-spacing:0.04em;margin-bottom:24px}
+    .hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:pulse 2s ease infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+    h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(40px,6vw,72px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;color:var(--text-1);margin-bottom:20px}
+    .hero-sub{max-width:520px;font-size:16px;color:var(--text-2);line-height:1.65;font-weight:300;margin-bottom:36px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--text-1);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:var(--radius-sm);text-decoration:none;transition:opacity var(--transition),transform var(--transition)}
+    .btn-primary:hover{opacity:0.82;transform:translateY(-1px)}
+    .btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--surface);color:var(--text-1);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:var(--radius-sm);text-decoration:none;transition:all var(--transition)}
+    .btn-secondary:hover{background:var(--surface-hi);border-color:var(--border-hi)}
+    .stats-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);padding:0 40px;opacity:0;animation:fadeIn 0.5s 0.15s ease forwards}
+    .stats-inner{max-width:1160px;margin:0 auto;display:flex}
+    .stat-item{padding:20px 40px 20px 0;display:flex;align-items:center;gap:10px}
+    .stat-item+.stat-item{padding-left:40px;border-left:1px solid var(--border)}
+    .stat-num{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;color:var(--text-1);letter-spacing:-0.02em}
+    .stat-lbl{font-size:13px;color:var(--text-3);font-weight:400}
+    main{max-width:1160px;margin:0 auto;padding:40px 40px 80px}
+    .toolbar{display:flex;flex-direction:column;gap:14px;margin-bottom:36px;opacity:0;animation:fadeIn 0.5s 0.2s ease forwards}
+    .search-wrap{position:relative}
+    .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none}
+    .search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-3);padding:2px;border-radius:4px;display:none;transition:color var(--transition)}
+    .search-clear:hover{color:var(--text-1)}
+    .search-clear.visible{display:flex;align-items:center}
+    #search{width:100%;padding:11px 40px 11px 42px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-1);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;box-shadow:var(--shadow-sm);transition:border-color var(--transition),box-shadow var(--transition)}
+    #search::placeholder{color:var(--text-3)}
+    #search:focus{border-color:var(--border-hi);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+    .filter-tabs{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px;width:fit-content;box-shadow:var(--shadow-sm)}
+    .filter-tab{padding:5px 14px;font-size:12px;font-weight:500;border-radius:calc(var(--radius-sm) - 2px);cursor:pointer;border:none;background:transparent;color:var(--text-3);transition:all var(--transition);letter-spacing:0.02em}
+    .filter-tab.active{background:var(--text-1);color:var(--bg)}
+    .filter-tab:not(.active):hover{color:var(--text-1);background:var(--bg-subtle)}
+    .chips-container{display:flex;flex-direction:column;gap:8px}
+    .chips-panel{display:none;flex-wrap:wrap;gap:6px}
+    .chips-panel.visible{display:flex}
+    .chip{padding:5px 12px;background:var(--surface);color:var(--text-2);border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:400;cursor:pointer;transition:all var(--transition);white-space:nowrap;box-shadow:var(--shadow-sm);display:inline-flex;align-items:center;gap:6px}
+    .chip:hover{color:var(--text-1);border-color:var(--border-hi)}
+    .chip.active{background:var(--text-1);color:var(--bg);border-color:var(--text-1)}
+    .chip-count{font-size:10px;font-weight:600;background:color-mix(in srgb,currentColor 15%,transparent);padding:1px 5px;border-radius:10px;min-width:18px;text-align:center}
+    .chip.active .chip-count{background:color-mix(in srgb,var(--bg) 25%,transparent)}
+    .lang-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .results-info{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .results-count{font-size:12px;color:var(--text-3);font-weight:400}
+    .results-count strong{color:var(--text-2);font-weight:500}
+    .sort-select{padding:5px 10px;background:var(--surface);color:var(--text-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none;transition:all var(--transition)}
+    .sort-select:hover{border-color:var(--border-hi);color:var(--text-1)}
+    .section-label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);margin-top:40px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .section-label:first-child{margin-top:0}
+    .section-count{font-size:10px;font-weight:600;color:var(--text-3);background:var(--bg-subtle);padding:1px 7px;border-radius:10px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;display:flex;flex-direction:column;gap:10px;text-decoration:none;box-shadow:var(--shadow-sm);transition:box-shadow var(--transition),border-color var(--transition),transform var(--transition);opacity:0;animation:fadeIn 0.4s ease forwards;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);opacity:0;transition:opacity var(--transition)}
+    .card:hover{box-shadow:var(--shadow-md);border-color:var(--border-hi);transform:translateY(-2px)}
+    .card:hover::before{opacity:1}
+    .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .card-name{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;color:var(--text-1);line-height:1.3}
+    .card-ext{flex-shrink:0;color:var(--text-3);transition:color var(--transition),transform var(--transition)}
+    .card:hover .card-ext{color:var(--text-2);transform:translate(2px,-2px)}
+    .card-field{font-size:12px;color:var(--accent);font-weight:500;letter-spacing:0.02em}
+    .card-desc{font-size:13px;color:var(--text-2);line-height:1.6;flex:1;font-weight:300}
+    .card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;flex-wrap:wrap}
+    .card-foot-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .badge{font-size:11px;font-weight:500;padding:2px 9px;border-radius:100px;display:inline-flex;align-items:center;gap:4px}
+    .badge-python{background:rgba(59,130,176,0.12);color:#2D7FB8}
+    .badge-typescript{background:rgba(49,120,198,0.12);color:#3563B8}
+    .badge-javascript{background:rgba(202,175,45,0.14);color:#8A7420}
+    .badge-vue{background:rgba(65,184,131,0.12);color:#2A9B6A}
+    .badge-rust{background:rgba(183,90,50,0.12);color:#B75A32}
+    .badge-go{background:rgba(0,173,216,0.12);color:#0080A0}
+    .badge-dart{background:rgba(84,162,219,0.12);color:#0074C8}
+    .badge-other{background:var(--bg-subtle);color:var(--text-3)}
+    [data-theme="dark"] .badge-python{background:rgba(59,130,176,0.18);color:#6AACDA}
+    [data-theme="dark"] .badge-typescript{background:rgba(49,120,198,0.18);color:#6B9FE8}
+    [data-theme="dark"] .badge-javascript{background:rgba(202,175,45,0.16);color:#C9A83A}
+    [data-theme="dark"] .badge-vue{background:rgba(65,184,131,0.16);color:#52C993}
+    [data-theme="dark"] .badge-rust{background:rgba(183,90,50,0.18);color:#E88060}
+    [data-theme="dark"] .badge-go{background:rgba(0,173,216,0.18);color:#40C0DC}
+    [data-theme="dark"] .badge-dart{background:rgba(84,162,219,0.18);color:#4AACF0}
+    [data-theme="dark"] .badge-other{background:var(--bg-subtle);color:var(--text-3)}
+    .card-author{font-size:12px;color:var(--text-3)}
+    .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:80px 0;opacity:0;animation:fadeIn 0.4s 0.25s ease forwards}
+    .spin{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:rotate 0.7s linear infinite}
+    .loader-txt{font-size:13px;color:var(--text-3)}
+    .error-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:32px;text-align:center;font-size:14px;color:var(--text-2);display:none}
+    .error-box a{color:var(--accent);text-decoration:none}
+    .empty{grid-column:1/-1;text-align:center;padding:64px 0;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .empty-title{font-size:15px;font-weight:500;color:var(--text-2)}
+    .empty-sub{font-size:13px;color:var(--text-3)}
+    .empty-reset{margin-top:4px;padding:7px 16px;background:var(--surface);color:var(--text-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--transition)}
+    .empty-reset:hover{border-color:var(--border-hi);color:var(--text-1)}
 
-    /*  RESET  */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    ::selection { background: var(--accent-bg); color: var(--text-1); }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-    body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text-1);
-      min-height: 100vh;
-      line-height: 1.6;
-      transition: background var(--transition), color var(--transition);
-    }
+    /* CONTRIBUTORS */
+    .contributors-section{border-top:1px solid var(--border);padding:64px 40px 72px;opacity:0;transition:opacity 0.5s ease}
+    .contributors-section.loaded{opacity:1}
+    .contributors-inner{max-width:1160px;margin:0 auto}
+    .contributors-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+    .contributors-title{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--text-1)}
+    .contributors-sub{font-size:13px;color:var(--text-3);margin-top:4px}
+    .contrib-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--accent-bg);color:var(--accent-text);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:var(--radius-sm);font-size:13px;font-weight:500;text-decoration:none;transition:all var(--transition);white-space:nowrap}
+    .contrib-cta:hover{background:color-mix(in srgb,var(--accent-bg) 80%,var(--accent))}
+    .contributors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .contrib-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px 18px;display:flex;align-items:center;gap:14px;text-decoration:none;box-shadow:var(--shadow-sm);transition:all var(--transition);position:relative;overflow:hidden;opacity:0;animation:fadeIn 0.4s ease forwards}
+    .contrib-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-hi);transform:translateY(-2px)}
+    .contrib-avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:border-color var(--transition);background:var(--bg-subtle)}
+    .contrib-card:hover .contrib-avatar{border-color:var(--accent)}
+    .contrib-info{flex:1;min-width:0}
+    .contrib-login{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:600;color:var(--text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+    .contrib-meta{display:flex;align-items:center;gap:8px;margin-top:2px}
+    .contrib-commits{font-size:11px;color:var(--text-3);font-weight:400}
+    .contrib-rank{font-size:10px;font-weight:600;padding:1px 7px;border-radius:100px}
+    .rank-1{background:rgba(202,175,45,0.18);color:#8A7420}
+    .rank-2{background:rgba(140,140,140,0.14);color:#666}
+    .rank-3{background:rgba(183,90,50,0.14);color:#B75A32}
+    [data-theme="dark"] .rank-1{background:rgba(202,175,45,0.2);color:#C9A83A}
+    [data-theme="dark"] .rank-2{background:rgba(180,180,180,0.14);color:#aaa}
+    [data-theme="dark"] .rank-3{background:rgba(183,90,50,0.2);color:#E88060}
+    .contrib-ext{color:var(--text-3);flex-shrink:0;transition:color var(--transition),transform var(--transition)}
+    .contrib-card:hover .contrib-ext{color:var(--text-2);transform:translate(2px,-2px)}
+    .contrib-skeleton{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px 18px;display:flex;align-items:center;gap:14px}
+    .skel{background:linear-gradient(90deg,var(--bg-subtle) 25%,var(--border) 50%,var(--bg-subtle) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .skel-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0}
+    .skel-lines{flex:1;display:flex;flex-direction:column;gap:6px}
+    .skel-line-1{height:12px;width:70%}
+    .skel-line-2{height:10px;width:45%}
+    .activity-section{margin-top:48px;padding-top:40px;border-top:1px solid var(--border)}
+    .activity-title{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+    .activity-title::after{content:'';flex:1;height:1px;background:var(--border)}
+    .activity-list{display:flex;flex-direction:column}
+    .activity-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);opacity:0;animation:fadeIn 0.4s ease forwards}
+    .activity-item:last-child{border-bottom:none}
+    .activity-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;background:var(--bg-subtle)}
+    .activity-body{flex:1;min-width:0}
+    .activity-msg{font-size:13px;color:var(--text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .activity-msg a{color:var(--accent);text-decoration:none;font-weight:500}
+    .activity-msg a:hover{text-decoration:underline}
+    .activity-time{font-size:11px;color:var(--text-3);margin-top:2px}
+    .activity-hash{font-size:11px;font-family:monospace;background:var(--bg-subtle);color:var(--text-3);padding:2px 6px;border-radius:4px;text-decoration:none;margin-left:6px;transition:color var(--transition)}
+    .activity-hash:hover{color:var(--text-1)}
 
-    /*  NAV  */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: color-mix(in srgb, var(--bg) 85%, transparent);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-    }
-    .nav-inner {
-      max-width: 1160px; margin: 0 auto;
-      height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-weight: 700; font-size: 18px;
-      color: var(--text-1); text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-    .nav-logo em { color: var(--accent); font-style: normal; }
-    .nav-right { display: flex; align-items: center; gap: 8px; }
-    .btn-sm {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 7px 14px;
-      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-      border-radius: var(--radius-sm); text-decoration: none; cursor: pointer;
-      transition: all var(--transition); border: none;
-    }
-    .btn-ghost {
-      background: transparent; color: var(--text-2);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { background: var(--surface); color: var(--text-1); }
-    .btn-solid { background: var(--text-1); color: var(--bg); }
-    .btn-solid:hover { opacity: 0.85; }
-    .theme-toggle {
-      width: 36px; height: 36px; border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      background: transparent; border: 1px solid var(--border);
-      color: var(--text-2); cursor: pointer;
-      transition: all var(--transition);
-    }
-    .theme-toggle:hover { background: var(--surface); color: var(--text-1); }
-    .icon-sun, .icon-moon { display: none; }
-    [data-theme="light"] .icon-sun  { display: block; }
-    [data-theme="dark"]  .icon-moon { display: block; }
-
-    /*  HERO  */
-    .hero {
-      max-width: 1160px; margin: 0 auto;
-      padding: 72px 40px 56px;
-      opacity: 0; animation: fadeIn 0.5s 0.05s ease forwards;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 5px 12px;
-      background: var(--accent-bg); color: var(--accent-text);
-      border-radius: 100px;
-      font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
-      margin-bottom: 24px;
-    }
-    .hero-eyebrow::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); flex-shrink: 0;
-      animation: pulse 2s ease infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.5; transform: scale(0.8); }
-    }
-    h1 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 700; line-height: 1.05;
-      letter-spacing: -0.03em; color: var(--text-1);
-      margin-bottom: 20px;
-    }
-    .hero-sub {
-      max-width: 520px;
-      font-size: 16px; color: var(--text-2);
-      line-height: 1.65; font-weight: 300; margin-bottom: 36px;
-    }
-    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px;
-      background: var(--text-1); color: var(--bg);
-      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
-      border-radius: var(--radius-sm); text-decoration: none;
-      transition: opacity var(--transition), transform var(--transition);
-    }
-    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px;
-      background: var(--surface); color: var(--text-1);
-      border: 1px solid var(--border);
-      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
-      border-radius: var(--radius-sm); text-decoration: none;
-      transition: all var(--transition);
-    }
-    .btn-secondary:hover { background: var(--surface-hi); border-color: var(--border-hi); }
-
-    /*  STATS STRIP  */
-    .stats-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-      padding: 0 40px;
-      opacity: 0; animation: fadeIn 0.5s 0.15s ease forwards;
-    }
-    .stats-inner {
-      max-width: 1160px; margin: 0 auto;
-      display: flex; gap: 0;
-    }
-    .stat-item {
-      padding: 20px 40px 20px 0;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .stat-item + .stat-item { padding-left: 40px; border-left: 1px solid var(--border); }
-    .stat-num {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 22px; font-weight: 700;
-      color: var(--text-1); letter-spacing: -0.02em;
-      transition: all 0.4s ease;
-    }
-    .stat-lbl { font-size: 13px; color: var(--text-3); font-weight: 400; }
-
-    /*  MAIN  */
-    main {
-      max-width: 1160px; margin: 0 auto;
-      padding: 40px 40px 80px;
-    }
-
-    /*  TOOLBAR  */
-    .toolbar {
-      display: flex; flex-direction: column; gap: 14px;
-      margin-bottom: 36px;
-      opacity: 0; animation: fadeIn 0.5s 0.2s ease forwards;
-    }
-    .search-wrap { position: relative; }
-    .search-icon {
-      position: absolute; left: 14px; top: 50%;
-      transform: translateY(-50%); color: var(--text-3);
-      pointer-events: none;
-    }
-    .search-clear {
-      position: absolute; right: 12px; top: 50%;
-      transform: translateY(-50%);
-      background: none; border: none; cursor: pointer;
-      color: var(--text-3); padding: 2px;
-      border-radius: 4px; display: none;
-      transition: color var(--transition);
-    }
-    .search-clear:hover { color: var(--text-1); }
-    .search-clear.visible { display: flex; align-items: center; }
-    #search {
-      width: 100%;
-      padding: 11px 40px 11px 42px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text-1);
-      font-family: 'DM Sans', sans-serif; font-size: 14px;
-      outline: none;
-      box-shadow: var(--shadow-sm);
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-    #search::placeholder { color: var(--text-3); }
-    #search:focus {
-      border-color: var(--border-hi);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
-    }
-
-    /*  FILTER TABS  */
-    .filter-tabs {
-      display: flex; gap: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 3px;
-      width: fit-content;
-      box-shadow: var(--shadow-sm);
-    }
-    .filter-tab {
-      padding: 5px 14px;
-      font-size: 12px; font-weight: 500;
-      border-radius: calc(var(--radius-sm) - 2px);
-      cursor: pointer; border: none; background: transparent;
-      color: var(--text-3);
-      transition: all var(--transition);
-      letter-spacing: 0.02em;
-    }
-    .filter-tab.active {
-      background: var(--text-1); color: var(--bg);
-    }
-    .filter-tab:not(.active):hover { color: var(--text-1); background: var(--bg-subtle); }
-
-    /*  CHIPS  */
-    .chips-container { display: flex; flex-direction: column; gap: 8px; }
-    .chips-panel { display: none; flex-wrap: wrap; gap: 6px; }
-    .chips-panel.visible { display: flex; }
-    .chip {
-      padding: 5px 12px;
-      background: var(--surface); color: var(--text-2);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 12px; font-weight: 400; cursor: pointer;
-      transition: all var(--transition); white-space: nowrap;
-      box-shadow: var(--shadow-sm);
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .chip:hover { color: var(--text-1); border-color: var(--border-hi); }
-    .chip.active { background: var(--text-1); color: var(--bg); border-color: var(--text-1); }
-    .chip-count {
-      font-size: 10px; font-weight: 600;
-      background: color-mix(in srgb, currentColor 15%, transparent);
-      padding: 1px 5px; border-radius: 10px;
-      min-width: 18px; text-align: center;
-    }
-    .chip.active .chip-count {
-      background: color-mix(in srgb, var(--bg) 25%, transparent);
-    }
-
-    /*  LANG DOT  */
-    .lang-dot {
-      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-    }
-
-    /*  RESULTS INFO  */
-    .results-info {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 16px;
-    }
-    .results-count {
-      font-size: 12px; color: var(--text-3); font-weight: 400;
-    }
-    .results-count strong { color: var(--text-2); font-weight: 500; }
-
-    /*  SORT SELECT  */
-    .sort-select {
-      padding: 5px 10px;
-      background: var(--surface); color: var(--text-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: 'DM Sans', sans-serif; font-size: 12px;
-      cursor: pointer; outline: none;
-      transition: all var(--transition);
-    }
-    .sort-select:hover { border-color: var(--border-hi); color: var(--text-1); }
-
-    /*  SECTION LABEL  */
-    .section-label {
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text-3);
-      margin-top: 40px; margin-bottom: 16px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .section-label:first-child { margin-top: 0; }
-    .section-count {
-      font-size: 10px; font-weight: 600;
-      color: var(--text-3);
-      background: var(--bg-subtle);
-      padding: 1px 7px; border-radius: 10px;
-    }
-
-    /*  GRID  */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 12px;
-    }
-
-    /*  CARD  */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      display: flex; flex-direction: column; gap: 10px;
-      text-decoration: none;
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
-      opacity: 0; animation: fadeIn 0.4s ease forwards;
-      position: relative; overflow: hidden;
-    }
-    .card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-    .card:hover { box-shadow: var(--shadow-md); border-color: var(--border-hi); transform: translateY(-2px); }
-    .card:hover::before { opacity: 1; }
-    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-    .card-name {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 15px; font-weight: 600; color: var(--text-1);
-      line-height: 1.3;
-    }
-    .card-ext {
-      flex-shrink: 0; color: var(--text-3);
-      transition: color var(--transition), transform var(--transition);
-    }
-    .card:hover .card-ext { color: var(--text-2); transform: translate(2px,-2px); }
-    .card-field { font-size: 12px; color: var(--accent); font-weight: 500; letter-spacing: 0.02em; }
-    .card-desc { font-size: 13px; color: var(--text-2); line-height: 1.6; flex: 1; font-weight: 300; }
-    .card-foot {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 8px; margin-top: 6px; flex-wrap: wrap;
-    }
-    .card-foot-left { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .badge {
-      font-size: 11px; font-weight: 500; padding: 2px 9px;
-      border-radius: 100px; display: inline-flex; align-items: center; gap: 4px;
-    }
-    .badge-python     { background: rgba(59,130,176,0.12); color: #2D7FB8; }
-    .badge-typescript { background: rgba(49,120,198,0.12); color: #3563B8; }
-    .badge-javascript { background: rgba(202,175,45,0.14); color: #8A7420; }
-    .badge-vue        { background: rgba(65,184,131,0.12); color: #2A9B6A; }
-    .badge-rust       { background: rgba(183,90,50,0.12);  color: #B75A32; }
-    .badge-go         { background: rgba(0,173,216,0.12);  color: #0080A0; }
-    .badge-dart       { background: rgba(84,162,219,0.12); color: #0074C8; }
-    .badge-other      { background: var(--bg-subtle); color: var(--text-3); }
-    [data-theme="dark"] .badge-python     { background: rgba(59,130,176,0.18); color: #6AACDA; }
-    [data-theme="dark"] .badge-typescript { background: rgba(49,120,198,0.18); color: #6B9FE8; }
-    [data-theme="dark"] .badge-javascript { background: rgba(202,175,45,0.16); color: #C9A83A; }
-    [data-theme="dark"] .badge-vue        { background: rgba(65,184,131,0.16); color: #52C993; }
-    [data-theme="dark"] .badge-rust       { background: rgba(183,90,50,0.18);  color: #E88060; }
-    [data-theme="dark"] .badge-go         { background: rgba(0,173,216,0.18);  color: #40C0DC; }
-    [data-theme="dark"] .badge-dart       { background: rgba(84,162,219,0.18); color: #4AACF0; }
-    [data-theme="dark"] .badge-other      { background: var(--bg-subtle); color: var(--text-3); }
-
-    .card-author { font-size: 12px; color: var(--text-3); }
-
-    /*  LOADER  */
-    .loader {
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 16px; padding: 80px 0;
-      opacity: 0; animation: fadeIn 0.4s 0.25s ease forwards;
-    }
-    .spin {
-      width: 32px; height: 32px;
-      border: 2px solid var(--border); border-top-color: var(--accent);
-      border-radius: 50%; animation: rotate 0.7s linear infinite;
-    }
-    .loader-txt { font-size: 13px; color: var(--text-3); }
-
-    /*  ERROR  */
-    .error-box {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 32px; text-align: center;
-      font-size: 14px; color: var(--text-2); display: none;
-    }
-    .error-box a { color: var(--accent); text-decoration: none; }
-
-    /*  EMPTY  */
-    .empty {
-      grid-column: 1/-1; text-align: center; padding: 64px 0;
-      display: flex; flex-direction: column; align-items: center; gap: 12px;
-    }
-    .empty-icon { font-size: 32px; opacity: 0.4; }
-    .empty-title { font-size: 15px; font-weight: 500; color: var(--text-2); }
-    .empty-sub { font-size: 13px; color: var(--text-3); }
-    .empty-reset {
-      margin-top: 4px; padding: 7px 16px;
-      background: var(--surface); color: var(--text-2);
-      border: 1px solid var(--border); border-radius: var(--radius-sm);
-      font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif;
-      transition: all var(--transition);
-    }
-    .empty-reset:hover { border-color: var(--border-hi); color: var(--text-1); }
-
-    /*  FOOTER  */
-    footer { border-top: 1px solid var(--border); padding: 32px 40px; }
-    .footer-inner {
-      max-width: 1160px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
-    }
-    .footer-brand {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 14px; font-weight: 600; color: var(--text-2);
-    }
-    .footer-brand em { color: var(--accent); font-style: normal; }
-    .footer-links { display: flex; align-items: center; gap: 20px; }
-    .footer-links a { font-size: 13px; color: var(--text-3); text-decoration: none; transition: color var(--transition); }
-    .footer-links a:hover { color: var(--text-1); }
-    .footer-date { font-size: 12px; color: var(--text-3); }
-
-    /*  KEYFRAMES  */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes rotate { to { transform: rotate(360deg); } }
-
-    /*  BACK TO TOP  */
-    .back-top {
-      position: fixed; bottom: 28px; right: 28px;
-      width: 40px; height: 40px;
-      background: var(--text-1); color: var(--bg);
-      border: none; border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: var(--shadow-md);
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.18s ease;
-      z-index: 50;
-    }
-    .back-top.visible { opacity: 1; pointer-events: auto; }
-    .back-top:hover { transform: translateY(-2px); }
-
-    /*  RESPONSIVE  */
-    @media (max-width: 720px) {
-      nav, .hero, .stats-strip, main, footer { padding-left: 20px; padding-right: 20px; }
-      .hero { padding-top: 48px; padding-bottom: 40px; }
-      h1 { font-size: 36px; }
-      .stats-inner { flex-wrap: wrap; }
-      .stat-item { padding: 16px 0; border: none !important; }
-      .grid { grid-template-columns: 1fr; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .back-top { bottom: 16px; right: 16px; }
+    footer{border-top:1px solid var(--border);padding:32px 40px}
+    .footer-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+    .footer-brand{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:600;color:var(--text-2)}
+    .footer-brand em{color:var(--accent);font-style:normal}
+    .footer-links{display:flex;align-items:center;gap:20px}
+    .footer-links a{font-size:13px;color:var(--text-3);text-decoration:none;transition:color var(--transition)}
+    .footer-links a:hover{color:var(--text-1)}
+    .footer-date{font-size:12px;color:var(--text-3)}
+    .back-top{position:fixed;bottom:28px;right:28px;width:40px;height:40px;background:var(--text-1);color:var(--bg);border:none;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:opacity 0.25s ease,transform 0.18s ease;z-index:50}
+    .back-top.visible{opacity:1;pointer-events:auto}
+    .back-top:hover{transform:translateY(-2px)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes rotate{to{transform:rotate(360deg)}}
+    @media(max-width:720px){
+      nav,.hero,.stats-strip,main,.contributors-section,footer{padding-left:20px;padding-right:20px}
+      .hero{padding-top:48px;padding-bottom:40px}
+      h1{font-size:36px}
+      .stats-inner{flex-wrap:wrap}
+      .stat-item{padding:16px 0;border:none!important}
+      .grid{grid-template-columns:1fr}
+      .contributors-grid{grid-template-columns:1fr}
+      .footer-inner{flex-direction:column;align-items:flex-start}
+      .back-top{bottom:16px;right:16px}
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">Ti<em>gmi</em></a>
     <div class="nav-right">
-      <a href="https://github.com/ArielShadrac/Tigmi/blob/main/CONTRIBUTING.md"
-         class="btn-sm btn-ghost" target="_blank" rel="noopener">Contribuer</a>
-      <a href="https://github.com/ArielShadrac/Tigmi"
-         class="btn-sm btn-solid" target="_blank" rel="noopener">
+      <a href="https://github.com/ArielShadrac/Tigmi/blob/main/CONTRIBUTING.md" class="btn-sm btn-ghost" target="_blank" rel="noopener">Contribuer</a>
+      <a href="https://github.com/ArielShadrac/Tigmi" class="btn-sm btn-solid" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12.01 12.01 0 0 0 24 12C24 5.37 18.63 0 12 0z"/></svg>
         GitHub
       </a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Basculer le thème">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Basculer le theme">
         <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
@@ -512,47 +227,28 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Open source &middot; Burkina Faso &middot; Afrique</div>
   <h1>Tigmi</h1>
-  <p class="hero-sub">
-    En mooré, <em>tigmi</em> veut dire <strong>rassembler</strong>. Une liste vivante des outils, bibliothèques et projets open source créés par ou pour le Burkina Faso.
-  </p>
+  <p class="hero-sub">En moore, <em>tigmi</em> veut dire <strong>rassembler</strong>. Une liste vivante des outils, bibliotheques et projets open source crees par ou pour le Burkina Faso.</p>
   <div class="hero-actions">
     <a href="https://github.com/ArielShadrac/Tigmi" class="btn-primary" target="_blank" rel="noopener">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12.01 12.01 0 0 0 24 12C24 5.37 18.63 0 12 0z"/></svg>
       Voir sur GitHub
     </a>
-    <a href="https://github.com/ArielShadrac/Tigmi/blob/main/CONTRIBUTING.md" class="btn-secondary" target="_blank" rel="noopener">
-      Proposer un projet
-    </a>
+    <a href="https://github.com/ArielShadrac/Tigmi/blob/main/CONTRIBUTING.md" class="btn-secondary" target="_blank" rel="noopener">Proposer un projet</a>
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-strip">
   <div class="stats-inner">
-    <div class="stat-item">
-      <span class="stat-num" id="stat-projects">—</span>
-      <span class="stat-lbl">projets</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-cats">—</span>
-      <span class="stat-lbl">catégories</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-langs">—</span>
-      <span class="stat-lbl">langages</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">MIT</span>
-      <span class="stat-lbl">licence</span>
-    </div>
+    <div class="stat-item"><span class="stat-num" id="stat-projects">--</span><span class="stat-lbl">projets</span></div>
+    <div class="stat-item"><span class="stat-num" id="stat-cats">--</span><span class="stat-lbl">categories</span></div>
+    <div class="stat-item"><span class="stat-num" id="stat-langs">--</span><span class="stat-lbl">langages</span></div>
+    <div class="stat-item"><span class="stat-num" id="stat-contribs">--</span><span class="stat-lbl">contributeurs</span></div>
   </div>
 </div>
 
-<!-- MAIN -->
 <main>
   <div class="toolbar" id="toolbar" style="display:none;">
     <div class="search-wrap">
@@ -562,20 +258,17 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-
-    <!-- Filter mode switcher -->
-    <div style="display:flex; align-items:center; gap: 12px; flex-wrap: wrap;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <div class="filter-tabs" id="filter-tabs">
-        <button class="filter-tab active" data-mode="cat">Par catégorie</button>
+        <button class="filter-tab active" data-mode="cat">Par categorie</button>
         <button class="filter-tab" data-mode="lang">Par langage</button>
       </div>
       <select class="sort-select" id="sort-select">
-        <option value="default">Tri : par défaut</option>
-        <option value="az">Tri : A → Z</option>
-        <option value="za">Tri : Z → A</option>
+        <option value="default">Tri : par defaut</option>
+        <option value="az">Tri : A &rarr; Z</option>
+        <option value="za">Tri : Z &rarr; A</option>
       </select>
     </div>
-
     <div class="chips-container">
       <div class="chips-panel visible" id="chips-cat"></div>
       <div class="chips-panel" id="chips-lang"></div>
@@ -584,24 +277,45 @@
 
   <div class="loader" id="loader">
     <div class="spin"></div>
-    <p class="loader-txt">Chargement depuis GitHub…</p>
+    <p class="loader-txt">Chargement depuis GitHub...</p>
   </div>
   <div class="error-box" id="error-box">
     Impossible de charger le README.
     <a href="https://github.com/ArielShadrac/Tigmi" target="_blank">Consulter sur GitHub.</a>
   </div>
-
   <div class="results-info" id="results-info" style="display:none;">
     <span class="results-count" id="results-count"></span>
   </div>
-
   <div id="content"></div>
 </main>
 
-<!-- FOOTER -->
+<section class="contributors-section" id="contributors-section">
+  <div class="contributors-inner">
+    <div class="contributors-header">
+      <div>
+        <h2 class="contributors-title">Contributeurs</h2>
+        <p class="contributors-sub">Ceux qui font vivre Tigmi &mdash; charge en temps reel depuis l'API GitHub</p>
+      </div>
+      <a href="https://github.com/ArielShadrac/Tigmi/blob/main/CONTRIBUTING.md" class="contrib-cta" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Devenir contributeur
+      </a>
+    </div>
+    <div class="contributors-grid" id="contributors-grid">
+      <div class="contrib-skeleton"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line-1"></div><div class="skel skel-line-2"></div></div></div>
+      <div class="contrib-skeleton"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line-1"></div><div class="skel skel-line-2"></div></div></div>
+      <div class="contrib-skeleton"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line-1"></div><div class="skel skel-line-2"></div></div></div>
+    </div>
+    <div class="activity-section" id="activity-section" style="display:none;">
+      <p class="activity-title">Activite recente</p>
+      <div class="activity-list" id="activity-list"></div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
-    <span class="footer-brand">Ti<em>gmi</em> — Open Source Burkina Faso</span>
+    <span class="footer-brand">Ti<em>gmi</em> &mdash; Open Source Burkina Faso</span>
     <div class="footer-links">
       <a href="https://github.com/ArielShadrac/Tigmi/blob/main/LICENSE" target="_blank">MIT</a>
       <a href="https://github.com/ArielShadrac/Tigmi/blob/main/CONTRIBUTING.md" target="_blank">Contribuer</a>
@@ -611,309 +325,262 @@
   </div>
 </footer>
 
-<!-- Back to top -->
 <button class="back-top" id="back-top" aria-label="Retour en haut">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
 <script>
-//  CONFIG 
-const OWNER  = 'ArielShadrac';
-const REPO   = 'Tigmi';
-const RAW    = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/README.md`;
-const COMMIT = `https://api.github.com/repos/${OWNER}/${REPO}/commits?path=README.md&per_page=1`;
+const OWNER = 'ArielShadrac';
+const REPO  = 'Tigmi';
+const RAW   = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/main/README.md';
+const GH    = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
 
 const SECTION_MAP = [
-  { keys: ['agriculture'],              label: 'Agriculture & Environnement' },
-  { keys: ['éducation','education'],    label: 'Éducation' },
-  { keys: ['santé','health'],           label: 'Santé' },
-  { keys: ['données','data'],           label: 'Données & IA' },
-  { keys: ['infrastructure'],           label: 'Infrastructure & Systèmes' },
-  { keys: ['fintech'],                  label: 'Fintech & Économie' },
-  { keys: ['outils','developer'],       label: 'Outils de développement' },
-  { keys: ['géospatial','geospatial'],  label: 'Géospatial & Cartographie' },
-  { keys: ['culture'],                  label: 'Culture & Société' },
-  { keys: ['énergie','energy'],         label: 'Énergie & Eau' },
-  { keys: ['transports','transport'],   label: 'Transports & Mobilité' },
-  { keys: ['sécurité','security'],      label: 'Sécurité & Cybersécurité' },
-  { keys: ['médias','media'],           label: 'Médias & Communication' },
+  {keys:['agriculture'],label:'Agriculture & Environnement'},
+  {keys:['education','education'],label:'Education'},
+  {keys:['sant','health'],label:'Sante'},
+  {keys:['donn','data'],label:'Donnees & IA'},
+  {keys:['infrastructure'],label:'Infrastructure & Systemes'},
+  {keys:['fintech'],label:'Fintech & Economie'},
+  {keys:['outils','developer'],label:'Outils de developpement'},
+  {keys:['ospatial','geospatial'],label:'Geospatial & Cartographie'},
+  {keys:['culture'],label:'Culture & Societe'},
+  {keys:['nergie','energy'],label:'Energie & Eau'},
+  {keys:['transports','transport'],label:'Transports & Mobilite'},
+  {keys:['curit','security'],label:'Securite & Cybersecurite'},
+  {keys:['dias','media'],label:'Medias & Communication'},
 ];
 
-const LANG_COLORS = {
-  python: '#2D7FB8', typescript: '#3563B8', javascript: '#8A7420',
-  vue: '#2A9B6A', rust: '#B75A32', go: '#0080A0', dart: '#0074C8',
-};
+const LANG_COLORS = {python:'#2D7FB8',typescript:'#3563B8',javascript:'#8A7420',vue:'#2A9B6A',rust:'#B75A32',go:'#0080A0',dart:'#0074C8'};
+const langColor = l => LANG_COLORS[(l||'').toLowerCase()] || '#9C9890';
+const toCategory = h => { const lh = h.toLowerCase(); for(const {keys,label} of SECTION_MAP) if(keys.some(k=>lh.includes(k))) return label; return null; };
 
-function langColor(l) {
-  return LANG_COLORS[(l||'').toLowerCase()] || '#9C9890';
-}
-
-function toCategory(heading) {
-  const h = heading.toLowerCase();
-  for (const { keys, label } of SECTION_MAP) {
-    if (keys.some(k => h.includes(k))) return label;
-  }
-  return null;
-}
-
-//  PARSER 
 function parse(md) {
-  const out = [];
-  let cat = null;
-  for (const raw of md.split('\n')) {
+  const out = []; let cat = null;
+  for(const raw of md.split('\n')) {
     const line = raw.trim();
-    if (/^##\s/.test(line)) { cat = toCategory(line.replace(/^##\s+/,'')); continue; }
-    if (!cat) continue;
-    if (/^\|[-:\s|]+\|$/.test(line)) continue;
-    if (!line.startsWith('|')) continue;
-    const cols = line.split('|').slice(1,-1).map(c => c.trim());
-    if (cols.length < 4) continue;
-    const [rawName, field, desc, lang, author] = cols;
-    if (/^(projet|project)/i.test(rawName)) continue;
-    if (/premier projet|first project/i.test(rawName)) continue;
-    if (!rawName || rawName.length < 2) continue;
-    const m    = rawName.match(/\[([^\]]+)\]\(([^)]+)\)/);
+    if(/^##\s/.test(line)){cat=toCategory(line.replace(/^##\s+/,''));continue;}
+    if(!cat) continue;
+    if(/^\|[-:\s|]+\|$/.test(line)) continue;
+    if(!line.startsWith('|')) continue;
+    const cols = line.split('|').slice(1,-1).map(c=>c.trim());
+    if(cols.length < 4) continue;
+    const [rawName,field,desc,lang,author] = cols;
+    if(/^(projet|project)/i.test(rawName)) continue;
+    if(/premier projet|first project/i.test(rawName)) continue;
+    if(!rawName||rawName.length<2) continue;
+    const m = rawName.match(/\[([^\]]+)\]\(([^)]+)\)/);
     const name = m ? m[1].trim() : rawName.replace(/[*_`]/g,'').trim();
-    const url  = m ? m[2].trim() : `https://github.com/${OWNER}/${REPO}`;
-    if (!name) continue;
-    out.push({ name, url, cat, field:(field||'').trim(), desc:(desc||'').trim(), lang:(lang||'').trim(), author:(author||'').trim() });
+    const url  = m ? m[2].trim() : 'https://github.com/'+OWNER+'/'+REPO;
+    if(!name) continue;
+    out.push({name,url,cat,field:(field||'').trim(),desc:(desc||'').trim(),lang:(lang||'').trim(),author:(author||'').trim()});
   }
   return out;
 }
 
-//  LANG HELPERS 
-const BADGE_CLASS = { python:'badge-python', typescript:'badge-typescript', javascript:'badge-javascript', vue:'badge-vue', rust:'badge-rust', go:'badge-go', dart:'badge-dart' };
+const BADGE_CLASS = {python:'badge-python',typescript:'badge-typescript',javascript:'badge-javascript',vue:'badge-vue',rust:'badge-rust',go:'badge-go',dart:'badge-dart'};
 const badgeClass = l => BADGE_CLASS[(l||'').toLowerCase().split(/[,\s/]/)[0]] || 'badge-other';
-const pLang = l => {
-  const raw = (l||'').split(/[,\s/]/)[0].trim();
-  return raw.charAt(0).toUpperCase() + raw.slice(1);
-};
+const pLang = l => { const r=(l||'').split(/[,\s/]/)[0].trim(); return r.charAt(0).toUpperCase()+r.slice(1); };
 const normLang = l => (l||'').toLowerCase().split(/[,\s/]/)[0].trim();
+const EXT = '<svg class="card-ext" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
 
-//  CARD 
-const EXT = `<svg class="card-ext" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
-
-function card(p, i) {
-  const langN = pLang(p.lang);
-  const dot   = `<span class="lang-dot" style="background:${langColor(normLang(p.lang))}"></span>`;
-  return `<a href="${p.url}" class="card" target="_blank" rel="noopener" style="animation-delay:${i*40}ms">
-    <div class="card-top">
-      <span class="card-name">${p.name}</span>${EXT}
-    </div>
-    <span class="card-field">${p.field}</span>
-    <p class="card-desc">${p.desc}</p>
-    <div class="card-foot">
-      <div class="card-foot-left">
-        <span class="badge ${badgeClass(p.lang)}">${dot}${langN}</span>
-      </div>
-      <span class="card-author">${p.author}</span>
-    </div>
-  </a>`;
+function card(p,i) {
+  const dot = '<span class="lang-dot" style="background:'+langColor(normLang(p.lang))+'"></span>';
+  return '<a href="'+p.url+'" class="card" target="_blank" rel="noopener" style="animation-delay:'+i*40+'ms"><div class="card-top"><span class="card-name">'+p.name+'</span>'+EXT+'</div><span class="card-field">'+p.field+'</span><p class="card-desc">'+p.desc+'</p><div class="card-foot"><div class="card-foot-left"><span class="badge '+badgeClass(p.lang)+'">'+dot+pLang(p.lang)+'</span></div><span class="card-author">'+p.author+'</span></div></a>';
 }
 
-//  STATE 
-let ALL = [], filterMode = 'cat', filterCat = 'all', filterLang = 'all', q = '', sortMode = 'default';
+let ALL=[], filterMode='cat', filterCat='all', filterLang='all', q='', sortMode='default';
 
 function filtered() {
-  return ALL.filter(p => {
-    const catOk  = filterMode !== 'cat'  || filterCat  === 'all' || p.cat === filterCat;
-    const langOk = filterMode !== 'lang' || filterLang === 'all' || normLang(p.lang) === filterLang;
+  return ALL.filter(p=>{
+    const catOk  = filterMode!=='cat'  || filterCat==='all'  || p.cat===filterCat;
+    const langOk = filterMode!=='lang' || filterLang==='all' || normLang(p.lang)===filterLang;
     const qOk    = !q || [p.name,p.field,p.desc,p.author,p.lang,p.cat].join(' ').toLowerCase().includes(q);
-    return catOk && langOk && qOk;
+    return catOk&&langOk&&qOk;
   });
 }
-
 function sorted(arr) {
-  if (sortMode === 'az') return [...arr].sort((a,b) => a.name.localeCompare(b.name));
-  if (sortMode === 'za') return [...arr].sort((a,b) => b.name.localeCompare(a.name));
+  if(sortMode==='az') return [...arr].sort((a,b)=>a.name.localeCompare(b.name));
+  if(sortMode==='za') return [...arr].sort((a,b)=>b.name.localeCompare(a.name));
   return arr;
 }
-
 function render() {
-  const el     = document.getElementById('content');
-  const riEl   = document.getElementById('results-info');
-  const rcEl   = document.getElementById('results-count');
-  const fx     = sorted(filtered());
-
-  document.getElementById('stat-projects').textContent = fx.length;
-  rcEl.innerHTML = `<strong>${fx.length}</strong> projet${fx.length !== 1 ? 's' : ''} affiché${fx.length !== 1 ? 's' : ''}`;
-  riEl.style.display = 'flex';
-
-  if (!fx.length) {
-    el.innerHTML = `<div class="grid"><div class="empty">
-      <span class="empty-icon">🔍</span>
-      <span class="empty-title">Aucun résultat</span>
-      <span class="empty-sub">Essayez un autre terme ou réinitialisez les filtres</span>
-      <button class="empty-reset" id="reset-btn">Tout réinitialiser</button>
-    </div></div>`;
-    document.getElementById('reset-btn').addEventListener('click', resetAll);
+  const el=document.getElementById('content');
+  const fx=sorted(filtered());
+  document.getElementById('stat-projects').textContent=fx.length;
+  document.getElementById('results-count').innerHTML='<strong>'+fx.length+'</strong> projet'+(fx.length!==1?'s':'')+' affiche'+(fx.length!==1?'s':'');
+  document.getElementById('results-info').style.display='flex';
+  if(!fx.length){
+    el.innerHTML='<div class="grid"><div class="empty"><span class="empty-title">Aucun resultat</span><span class="empty-sub">Essayez un autre terme ou reinitialisez les filtres</span><button class="empty-reset" id="reset-btn">Tout reinitialiser</button></div></div>';
+    document.getElementById('reset-btn').addEventListener('click',resetAll);
     return;
   }
-
-  if (filterMode === 'cat') {
-    const catOrder = SECTION_MAP.map(s => s.label);
-    const byCat    = {};
-    fx.forEach(p => (byCat[p.cat] = byCat[p.cat]||[]).push(p));
-    const visible  = (filterCat === 'all' ? catOrder : [filterCat]).filter(c => byCat[c]);
-    el.innerHTML   = visible.map(c =>
-      `<p class="section-label">${c} <span class="section-count">${byCat[c].length}</span></p>
-       <div class="grid">${byCat[c].map(card).join('')}</div>`
-    ).join('');
+  if(filterMode==='cat'){
+    const byCat={};
+    fx.forEach(p=>(byCat[p.cat]=byCat[p.cat]||[]).push(p));
+    const visible=(filterCat==='all'?SECTION_MAP.map(s=>s.label):[filterCat]).filter(c=>byCat[c]);
+    el.innerHTML=visible.map(c=>'<p class="section-label">'+c+' <span class="section-count">'+byCat[c].length+'</span></p><div class="grid">'+byCat[c].map(card).join('')+'</div>').join('');
   } else {
-    // Group by language
-    const byLang = {};
-    fx.forEach(p => {
-      const l = normLang(p.lang) || 'autre';
-      (byLang[l] = byLang[l]||[]).push(p);
-    });
-    const langOrder = Object.keys(byLang).sort((a,b) => byLang[b].length - byLang[a].length);
-    const visible   = filterLang === 'all' ? langOrder : langOrder.filter(l => l === filterLang);
-    el.innerHTML    = visible.map(l => {
-      const label = l.charAt(0).toUpperCase() + l.slice(1);
-      const dot   = `<span class="lang-dot" style="background:${langColor(l)};display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle"></span>`;
-      return `<p class="section-label">${dot}${label} <span class="section-count">${byLang[l].length}</span></p>
-              <div class="grid">${byLang[l].map(card).join('')}</div>`;
+    const byLang={};
+    fx.forEach(p=>{const l=normLang(p.lang)||'autre';(byLang[l]=byLang[l]||[]).push(p);});
+    const order=Object.keys(byLang).sort((a,b)=>byLang[b].length-byLang[a].length);
+    const visible=filterLang==='all'?order:order.filter(l=>l===filterLang);
+    el.innerHTML=visible.map(l=>{
+      const dot='<span class="lang-dot" style="background:'+langColor(l)+';display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle"></span>';
+      return '<p class="section-label">'+dot+l.charAt(0).toUpperCase()+l.slice(1)+' <span class="section-count">'+byLang[l].length+'</span></p><div class="grid">'+byLang[l].map(card).join('')+'</div>';
     }).join('');
   }
 }
-
 function resetAll() {
-  filterCat = 'all'; filterLang = 'all'; q = ''; sortMode = 'default';
-  document.getElementById('search').value = '';
+  filterCat='all';filterLang='all';q='';sortMode='default';
+  document.getElementById('search').value='';
   document.getElementById('search-clear').classList.remove('visible');
-  document.getElementById('sort-select').value = 'default';
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.chip[data-val="all"]').forEach(c => c.classList.add('active'));
+  document.getElementById('sort-select').value='default';
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.chip[data-val="all"]').forEach(c=>c.classList.add('active'));
   render();
 }
-
-//  CHIPS BUILDER 
-function buildChips(cats, langs) {
-  // Category chips
-  const catEl = document.getElementById('chips-cat');
-  const catCounts = {};
-  ALL.forEach(p => catCounts[p.cat] = (catCounts[p.cat]||0) + 1);
-  catEl.innerHTML = `<button class="chip active" data-val="all">Tous <span class="chip-count">${ALL.length}</span></button>` +
-    SECTION_MAP.map(s=>s.label).filter(c=>cats.includes(c)).map(c =>
-      `<button class="chip" data-val="${c}">${c.split(/[/&]/)[0].trim()} <span class="chip-count">${catCounts[c]||0}</span></button>`
-    ).join('');
-  catEl.addEventListener('click', e => {
-    const ch = e.target.closest('.chip'); if (!ch) return;
-    catEl.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-    ch.classList.add('active');
-    filterCat = ch.dataset.val; render();
-  });
-
-  // Lang chips
-  const langEl = document.getElementById('chips-lang');
-  const langCounts = {};
-  ALL.forEach(p => { const l = normLang(p.lang)||'autre'; langCounts[l]=(langCounts[l]||0)+1; });
-  const sortedLangs = langs.sort((a,b) => (langCounts[b]||0)-(langCounts[a]||0));
-  langEl.innerHTML = `<button class="chip active" data-val="all">Tous <span class="chip-count">${ALL.length}</span></button>` +
-    sortedLangs.map(l => {
-      const label = l.charAt(0).toUpperCase() + l.slice(1);
-      const dot   = `<span class="lang-dot" style="background:${langColor(l)}"></span>`;
-      return `<button class="chip" data-val="${l}">${dot}${label} <span class="chip-count">${langCounts[l]||0}</span></button>`;
-    }).join('');
-  langEl.addEventListener('click', e => {
-    const ch = e.target.closest('.chip'); if (!ch) return;
-    langEl.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-    ch.classList.add('active');
-    filterLang = ch.dataset.val; render();
-  });
+function buildChips(cats,langs) {
+  const catEl=document.getElementById('chips-cat');
+  const catCounts={};
+  ALL.forEach(p=>catCounts[p.cat]=(catCounts[p.cat]||0)+1);
+  catEl.innerHTML='<button class="chip active" data-val="all">Tous <span class="chip-count">'+ALL.length+'</span></button>'+
+    SECTION_MAP.map(s=>s.label).filter(c=>cats.includes(c)).map(c=>'<button class="chip" data-val="'+c+'">'+c.split(/[/&]/)[0].trim()+' <span class="chip-count">'+(catCounts[c]||0)+'</span></button>').join('');
+  catEl.addEventListener('click',e=>{const ch=e.target.closest('.chip');if(!ch)return;catEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));ch.classList.add('active');filterCat=ch.dataset.val;render();});
+  const langEl=document.getElementById('chips-lang');
+  const langCounts={};
+  ALL.forEach(p=>{const l=normLang(p.lang)||'autre';langCounts[l]=(langCounts[l]||0)+1;});
+  const sortedLangs=langs.sort((a,b)=>(langCounts[b]||0)-(langCounts[a]||0));
+  langEl.innerHTML='<button class="chip active" data-val="all">Tous <span class="chip-count">'+ALL.length+'</span></button>'+
+    sortedLangs.map(l=>'<button class="chip" data-val="'+l+'"><span class="lang-dot" style="background:'+langColor(l)+'"></span>'+l.charAt(0).toUpperCase()+l.slice(1)+' <span class="chip-count">'+(langCounts[l]||0)+'</span></button>').join('');
+  langEl.addEventListener('click',e=>{const ch=e.target.closest('.chip');if(!ch)return;langEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));ch.classList.add('active');filterLang=ch.dataset.val;render();});
 }
 
-//  INIT 
-async function init() {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches)
-    document.documentElement.dataset.theme = 'dark';
-
+// CONTRIBUTORS
+function timeAgo(d) {
+  const diff=Date.now()-new Date(d).getTime();
+  const m=Math.floor(diff/60000),h=Math.floor(m/60),dy=Math.floor(h/24),w=Math.floor(dy/7),mo=Math.floor(dy/30);
+  if(m<2) return "a l'instant";
+  if(m<60) return 'il y a '+m+' min';
+  if(h<24) return 'il y a '+h+'h';
+  if(dy<7) return 'il y a '+dy+'j';
+  if(w<5)  return 'il y a '+w+' sem.';
+  return 'il y a '+mo+' mois';
+}
+function rankBadge(i) {
+  if(i===0) return '<span class="contrib-rank rank-1">1er</span>';
+  if(i===1) return '<span class="contrib-rank rank-2">2e</span>';
+  if(i===2) return '<span class="contrib-rank rank-3">3e</span>';
+  return '';
+}
+async function loadContributors() {
+  const gridEl=document.getElementById('contributors-grid');
+  const secEl=document.getElementById('contributors-section');
   try {
-    const res = await fetch(RAW, { cache: 'no-cache' });
-    if (!res.ok) throw new Error(res.status);
-    ALL = parse(await res.text());
+    const res=await fetch(GH+'/contributors?per_page=30&anon=false');
+    if(!res.ok) throw new Error(res.status);
+    const contributors=await res.json();
+    if(!Array.isArray(contributors)||!contributors.length){
+      gridEl.innerHTML='<p style="font-size:13px;color:var(--text-3);padding:8px 0;">Aucun contributeur charge.</p>';
+      secEl.classList.add('loaded');return;
+    }
+    document.getElementById('stat-contribs').textContent=contributors.length;
+    const CEXT='<svg class="contrib-ext" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
+    gridEl.innerHTML=contributors.map((c,i)=>
+      '<a href="'+c.html_url+'" class="contrib-card" target="_blank" rel="noopener" style="animation-delay:'+i*50+'ms">'+
+      '<img class="contrib-avatar" src="'+c.avatar_url+'&s=88" alt="'+c.login+'" loading="lazy" width="44" height="44"/>'+
+      '<div class="contrib-info"><span class="contrib-login">'+c.login+'</span>'+
+      '<div class="contrib-meta"><span class="contrib-commits">'+c.contributions+' commit'+(c.contributions>1?'s':'')+'</span>'+rankBadge(i)+'</div></div>'+CEXT+'</a>'
+    ).join('');
+    secEl.classList.add('loaded');
+  } catch(_) {
+    gridEl.innerHTML='<p style="font-size:13px;color:var(--text-3);padding:8px 0;">Impossible de charger. <a href="https://github.com/'+OWNER+'/'+REPO+'/graphs/contributors" target="_blank" style="color:var(--accent);text-decoration:none;">Voir sur GitHub</a></p>';
+    secEl.classList.add('loaded');
+  }
+}
+async function loadActivity() {
+  try {
+    const res=await fetch(GH+'/commits?per_page=8');
+    if(!res.ok) throw new Error(res.status);
+    const commits=await res.json();
+    if(!Array.isArray(commits)||!commits.length) return;
+    document.getElementById('activity-section').style.display='block';
+    document.getElementById('activity-list').innerHTML=commits.map((c,i)=>{
+      const author=c.author||{};
+      const committer=c.commit&&c.commit.committer||{};
+      const login=author.login||committer.name||'unknown';
+      const avatar=author.avatar_url?author.avatar_url+'&s=56':'https://github.com/'+login+'.png?size=56';
+      const profile=author.html_url||'https://github.com/'+login;
+      const msg=((c.commit&&c.commit.message)||'').split('\n')[0];
+      const sha=(c.sha||'').slice(0,7);
+      const date=committer.date||'';
+      const url=c.html_url||'#';
+      return '<div class="activity-item" style="animation-delay:'+i*60+'ms">'+
+        '<img class="activity-avatar" src="'+avatar+'" alt="'+login+'" loading="lazy" width="28" height="28"/>'+
+        '<div class="activity-body"><p class="activity-msg"><a href="'+profile+'" target="_blank" rel="noopener">'+login+'</a> &mdash; '+msg+
+        (sha?'<a href="'+url+'" class="activity-hash" target="_blank" rel="noopener">'+sha+'</a>':'')+
+        '</p><p class="activity-time">'+timeAgo(date)+'</p></div></div>';
+    }).join('');
+  } catch(_){}
+}
 
-    const cats  = [...new Set(ALL.map(p => p.cat))];
-    const langs = [...new Set(ALL.map(p => normLang(p.lang)).filter(Boolean))];
-
-    document.getElementById('stat-projects').textContent = ALL.length;
-    document.getElementById('stat-cats').textContent     = cats.length;
-    document.getElementById('stat-langs').textContent    = langs.length;
-
-    buildChips(cats, langs);
-
-    // Filter mode tabs
-    document.getElementById('filter-tabs').addEventListener('click', e => {
-      const tab = e.target.closest('.filter-tab'); if (!tab) return;
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      filterMode = tab.dataset.mode;
-      document.getElementById('chips-cat').classList.toggle('visible', filterMode === 'cat');
-      document.getElementById('chips-lang').classList.toggle('visible', filterMode === 'lang');
+async function init() {
+  if(window.matchMedia('(prefers-color-scheme: dark)').matches)
+    document.documentElement.dataset.theme='dark';
+  const [readmeRes]=await Promise.allSettled([
+    fetch(RAW,{cache:'no-cache'}),
+    loadContributors(),
+    loadActivity(),
+  ]);
+  try {
+    if(readmeRes.status!=='fulfilled'||!readmeRes.value.ok) throw new Error('readme');
+    ALL=parse(await readmeRes.value.text());
+    const cats=[...new Set(ALL.map(p=>p.cat))];
+    const langs=[...new Set(ALL.map(p=>normLang(p.lang)).filter(Boolean))];
+    document.getElementById('stat-cats').textContent=cats.length;
+    document.getElementById('stat-langs').textContent=langs.length;
+    buildChips(cats,langs);
+    document.getElementById('filter-tabs').addEventListener('click',e=>{
+      const tab=e.target.closest('.filter-tab');if(!tab)return;
+      document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');filterMode=tab.dataset.mode;
+      document.getElementById('chips-cat').classList.toggle('visible',filterMode==='cat');
+      document.getElementById('chips-lang').classList.toggle('visible',filterMode==='lang');
       render();
     });
-
-    // Search
-    const searchEl = document.getElementById('search');
-    const clearEl  = document.getElementById('search-clear');
-    searchEl.addEventListener('input', e => {
-      q = e.target.value.trim().toLowerCase();
-      clearEl.classList.toggle('visible', !!q);
-      render();
-    });
-    clearEl.addEventListener('click', () => {
-      searchEl.value = ''; q = '';
-      clearEl.classList.remove('visible');
-      searchEl.focus(); render();
-    });
-
-    // Sort
-    document.getElementById('sort-select').addEventListener('change', e => {
-      sortMode = e.target.value; render();
-    });
-
-    // Commit date
+    const searchEl=document.getElementById('search');
+    const clearEl=document.getElementById('search-clear');
+    searchEl.addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();clearEl.classList.toggle('visible',!!q);render();});
+    clearEl.addEventListener('click',()=>{searchEl.value='';q='';clearEl.classList.remove('visible');searchEl.focus();render();});
+    document.getElementById('sort-select').addEventListener('change',e=>{sortMode=e.target.value;render();});
     try {
-      const cr = await fetch(COMMIT);
-      const d  = await cr.json();
-      if (d[0]) {
-        const dt = new Date(d[0].commit.committer.date);
-        document.getElementById('footer-date').textContent =
-          `Mis à jour le ${dt.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}`;
+      const cr=await fetch(GH+'/commits?path=README.md&per_page=1');
+      const d=await cr.json();
+      if(d[0]){
+        const dt=new Date(d[0].commit.committer.date);
+        document.getElementById('footer-date').textContent='Mis a jour le '+dt.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
       }
-    } catch(_) {}
-
-    document.getElementById('loader').style.display  = 'none';
-    document.getElementById('toolbar').style.display = 'flex';
+    } catch(_){}
+    document.getElementById('loader').style.display='none';
+    document.getElementById('toolbar').style.display='flex';
     render();
-
-  } catch(e) {
-    document.getElementById('loader').style.display   = 'none';
-    document.getElementById('error-box').style.display = 'block';
+  } catch(_){
+    document.getElementById('loader').style.display='none';
+    document.getElementById('error-box').style.display='block';
   }
 }
 
-// Theme toggle
-document.getElementById('theme-toggle').addEventListener('click', () => {
-  document.documentElement.dataset.theme =
-    document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';
 });
-
-// Back to top
-const backTop = document.getElementById('back-top');
-window.addEventListener('scroll', () => {
-  backTop.classList.toggle('visible', window.scrollY > 400);
-}, { passive: true });
-backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-// Keyboard shortcut: / to focus search
-document.addEventListener('keydown', e => {
-  if (e.key === '/' && document.activeElement !== document.getElementById('search')) {
-    e.preventDefault();
-    document.getElementById('search')?.focus();
+const backTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);},{passive:true});
+backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement!==document.getElementById('search')){
+    e.preventDefault();document.getElementById('search').focus();
   }
 });
-
 init();
 </script>
 </body>
