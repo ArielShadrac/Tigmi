@@ -175,6 +175,7 @@
 | Projet / Project | Domaine / Field | Description | Langage / Language | Auteur / Author |
 |---|---|---|---|---|
 | [oauth2](https://github.com/abdoulfataoh/oauth2) | Authentification | Serveur d'authentification FastAPI implémentant le flux OAuth2 Authorization Code avec PKCE, OTP, gestion du consentement et panel d'administration. / FastAPI authentication server implementing OAuth2 Authorization Code Flow with PKCE, OTP verification, consent management, and admin panel. | Python | [abdoulfataoh](https://github.com/abdoulfataoh) |
+| [RAO-Framework](https://github.com/Abdoul202/rao-framwork) | Red Team / IA | Framework multi-agents autonome pour le red teaming offensif. Orchestre un pipeline LangGraph (Scout → Librarian → Critic → Operator) pour automatiser la reconnaissance réseau (nmap), l'analyse CVE, le scan web et la validation LLM des vulnérabilités, avec génération de rapports HTML/JSON et système de plugins extensible. / Autonomous multi-agent red teaming framework. Orchestrates a LangGraph pipeline (Scout → Librarian → Critic → Operator) to automate network reconnaissance (nmap), CVE analysis, web scanning, and LLM-based vulnerability validation, with HTML/JSON reporting and an extensible plugin system. | Python | [Abdoul202](https://github.com/Abdoul202) |
 
 ---
 
