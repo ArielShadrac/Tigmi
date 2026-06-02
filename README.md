@@ -85,6 +85,7 @@
 |---|---|---|---|---|
 | [MaskMe](https://github.com/k13lucien/maskme) | Data Privacy & Compliance | Une bibliothèque Python agnostique pour le Data masking. Conçue pour transformer les données sensibles (structurées ou non) en données anonymes exploitables, garantissant ainsi le respect des règlements sur la protection des données à caractère personnel (CIL, Loi n°001-2021/AN) tout en préservant l'intégrité des flux de données. | Python | [Lucien Kiemde](https://github.com/k13lucien) |
 | [lefaso-net-scraper](https://github.com/abdoulfataoh/lefaso-net-scraper) | Data Collection | Bibliothèque Python robuste pour extraire articles et commentaires de lefaso.net, le principal portail d'information en ligne du Burkina Faso. Disponible sur PyPI. / Robust Python library to extract articles and comments from lefaso.net, Burkina Faso's leading online news portal. Available on PyPI. | Python | [abdoulfataoh](https://github.com/abdoulfataoh) |
+| [Maké](https://github.com/YaogoGerard/Make) | Community & Developer Analytics | Classement open source des développeurs et étudiants burkinabè les plus actifs sur GitHub, basé sur leurs contributions publiques des 12 derniers mois. / Open source ranking of the most active Burkinabe developers and students on GitHub, based on their public contributions over the last 12 months. | Vue | [Gérard Windpagnangdé YAOGO](https://github.com/YaogoGerard) |
 
 ---
 
